@@ -62,11 +62,17 @@ grunt.initConfig({
 
 ### Options
 
+#### options.rootProperty
+Type: `String`
+Default value: `this`
+
+Name of the root object which contains the namespace.
+
 #### options.namespace
 Type: `String`
 Default value: `Templates`
 
-Name of the global object which contains the strings. Assigned as `this["Templates"] = {...}`
+Name of the object which contains the strings. Assigned as `this["Templates"] = {...}`
 
 #### options.processName
 Type: `Function {String -> String}`
