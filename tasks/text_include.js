@@ -21,19 +21,19 @@ module.exports = function (grunt) {
         // Merge task-specific and/or target-specific options with these defaults.
         var options = this.options({
             rootProperty: 'this',
-			namespace: 'Templates',
+            namespace: 'Templates',
             processContent: identity,
             processName: identity,
             header: '',
             footer: ''
         });
 
-        var thisTemplate = options.rootProperty + '["' + options.namespace + '"]';
+        var template = options.rootProperty + '["' + options.namespace + '"]';
 
         // Iterate over all specified file groups.
         this.files.forEach(function (f) {
             // Concat specified files.
-            var src = thisTemplate + '=' + thisTemplate+ '||{};' +
+            var src = template + '=' + template + '||{};' +
                 f.src.filter(function (filepath) {
                     // Warn on and remove invalid source files (if nonull was set).
                     if (!grunt.file.exists(filepath)) {
@@ -45,11 +45,11 @@ module.exports = function (grunt) {
                     // Read file source.
                     var content = options.processContent(grunt.file.read(filepath), filepath);
                     var name = options.processName(filepath);
-                    content = content.replace(/\n/g,'\\n').replace(/\r/g,'\\r').replace(/\t/g,'\\t').replace(/"/g,'\\"');
+                    content = content.replace(/\n/g, '\\n').replace(/\r/g, '\\r').replace(/\t/g, '\\t').replace(/"/g, '\\"');
 
                     grunt.log.writeln('Including text file "' + filepath + '" as ' + options.namespace + '["' + name + '"]');
 
-                    return thisTemplate + '[\'' + name + '\']="' + content + '"';
+                    return template + '[\'' + name + '\']="' + content + '"';
                 }).join(';');
 
             // Write the destination file.
