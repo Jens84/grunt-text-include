@@ -20,14 +20,15 @@ module.exports = function (grunt) {
 
         // Merge task-specific and/or target-specific options with these defaults.
         var options = this.options({
-            namespace: 'Templates',
+            rootProperty: 'this',
+			namespace: 'Templates',
             processContent: identity,
             processName: identity,
             header: '',
             footer: ''
         });
 
-        var thisTemplate = 'this["' + options.namespace + '"]';
+        var thisTemplate = options.rootProperty + '["' + options.namespace + '"]';
 
         // Iterate over all specified file groups.
         this.files.forEach(function (f) {
